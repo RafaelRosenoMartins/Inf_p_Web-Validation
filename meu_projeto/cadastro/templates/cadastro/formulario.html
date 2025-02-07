@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Usuário</title>
+    <script>
+        function validarFormulario(event) {
+            event.preventDefault();
+            let nome = document.getElementById('id_nome').value;
+            let email = document.getElementById('id_email').value;
+            let telefone = document.getElementById('id_telefone').value;
+
+            if (nome.length < 5 || nome.length > 40) {
+                alert('O nome deve ter entre 5 e 40 caracteres.');
+                return false;
+            }
+            if (!email.includes('@')) {
+                alert('O email deve conter um "@".');
+                return false;
+            }
+            if (telefone.length !== 11 || isNaN(telefone)) {
+                alert('O telefone deve conter exatamente 11 números.');
+                return false;
+            }
+            document.getElementById('formulario').submit();
+        }
+    </script>
+</head>
+<body>
+    <h2>Cadastro de Usuário</h2>
+    <form id="formulario" method="POST" onsubmit="validarFormulario(event)">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Cadastrar</button>
+    </form>
+</body>
+</html>
